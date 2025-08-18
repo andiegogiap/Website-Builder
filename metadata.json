@@ -1,0 +1,6 @@
+{
+  "name": "Copy of Gemini Website Builder",
+  "description": "An AI-powered application that generates and iterates on single-page websites from user prompts, simulating a CLI build process and providing a live preview.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
