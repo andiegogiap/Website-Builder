@@ -1,7 +1,8 @@
+
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import type { ChatMessage, SamplePrompt } from '../types';
-import { CliOutput } from './CliOutput';
-import { PaperclipIcon, SendIcon, XIcon, ChatBubbleIcon, LightBulbIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from './icons';
+import type { ChatMessage, SamplePrompt } from '../types.ts';
+import { CliOutput } from './CliOutput.tsx';
+import { PaperclipIcon, SendIcon, XIcon, ChatBubbleIcon, LightBulbIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from './icons.tsx';
 
 const SAMPLES_PER_PAGE = 2;
 
@@ -86,8 +87,8 @@ const AddSampleForm: React.FC<{
   };
 
   return (
-    <div className="p-4 bg-gray-900/50 rounded-lg animate-fade-in flex flex-col gap-4">
-      <h3 className="text-lg font-bold text-white">Add New Sample Prompt</h3>
+    <div className="p-4 glass neon rounded-lg animate-fade-in flex flex-col gap-4">
+      <h3 className="text-lg font-bold text-white font-orbitron">Add New Sample Prompt</h3>
       <div>
         <label htmlFor="sample-title" className="block text-sm font-medium text-gray-300 mb-1">Title</label>
         <input
@@ -96,7 +97,7 @@ const AddSampleForm: React.FC<{
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="e.g., Cool Photo Gallery"
-          className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full bg-gray-900/50 border border-gray-100/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
           disabled={isLoading}
         />
       </div>
@@ -108,7 +109,7 @@ const AddSampleForm: React.FC<{
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="e.g., A page to display a grid of photos."
-          className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full bg-gray-900/50 border border-gray-100/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
           disabled={isLoading}
         />
       </div>
@@ -120,7 +121,7 @@ const AddSampleForm: React.FC<{
           onChange={(e) => setPrompt(e.target.value)}
           rows={5}
           placeholder="e.g., Create a responsive grid of 9 placeholder images..."
-          className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          className="w-full bg-gray-900/50 border border-gray-100/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
           disabled={isLoading}
         />
       </div>
@@ -153,14 +154,15 @@ interface ControlPanelProps {
 const TabButton = ({ active, onClick, icon: Icon, children }) => (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-3 py-3 text-sm font-medium border-b-2 transition-colors ${
+      className={`relative flex items-center gap-2 px-3 py-3 text-sm font-medium transition-colors ${
         active
-          ? 'border-cyan-400 text-white'
-          : 'border-transparent text-gray-400 hover:text-white'
+          ? 'text-white'
+          : 'text-gray-400 hover:text-white'
       }`}
     >
       <Icon className="w-5 h-5" />
       {children}
+      {active && <div className="absolute bottom-0 left-2 right-2 h-0.5 bg-cyan-400 shadow-[0_0_8px_theme(colors.cyan.400)] rounded-full"></div>}
     </button>
   );
 
@@ -205,16 +207,18 @@ export const ControlPanel: React.FC<ControlPanelProps> = (props) => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col bg-gray-800/50">
-      <header className="p-4 border-b border-gray-700">
-        <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-          Gemini Website Builder
-        </h1>
+    <div className="h-full flex flex-col glass rounded-r-lg">
+      <header className="p-4 flex-shrink-0">
+        <div className="p-1 rounded-xl neon">
+            <h1 className="text-2xl font-bold text-white flex items-center justify-center gap-3 font-orbitron py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            Gemini Website Builder
+            </h1>
+        </div>
       </header>
         
-      <div className="border-b border-gray-700 px-2">
-        <nav className="flex space-x-2">
+      <div className="px-2">
+        <nav className="flex justify-center space-x-2">
           <TabButton active={activeTab === 'chat'} onClick={() => setActiveTab('chat')} icon={ChatBubbleIcon}>
             Chat
           </TabButton>
@@ -237,11 +241,11 @@ export const ControlPanel: React.FC<ControlPanelProps> = (props) => {
         )}
       </div>
 
-      <div className="h-48 border-t border-gray-700 flex-shrink-0">
+      <div className="h-48 border-t border-gray-700/50 flex-shrink-0">
           <CliOutput output={props.cliOutput} />
       </div>
 
-      <div className="p-4 border-t border-gray-700 flex-shrink-0">
+      <div className="p-4 border-t border-gray-700/50 flex-shrink-0">
         <PromptForm {...props} />
       </div>
     </div>
@@ -256,7 +260,7 @@ const ChatView: React.FC<ControlPanelProps> = ({ chatHistory }) => {
     }, [chatHistory]);
     
     return (
-        <div className="flex-grow p-4 overflow-y-auto">
+        <div className="flex-grow p-4 overflow-y-auto custom-scrollbar">
         {chatHistory.length === 0 && (
           <div className="text-center text-gray-400 p-8">
             <p className="mb-2">Welcome!</p>
@@ -270,7 +274,7 @@ const ChatView: React.FC<ControlPanelProps> = ({ chatHistory }) => {
               <div className="w-8 h-8 flex-shrink-0 bg-gray-700 rounded-full flex items-center justify-center">
                 <msg.icon className="w-5 h-5 text-gray-400" />
               </div>
-              <div className="bg-gray-700/50 rounded-lg p-3 max-w-[85%]">
+              <div className="glass rounded-lg p-3 max-w-[85%]">
                 <p className="text-gray-200 whitespace-pre-wrap">{msg.content}</p>
                 {msg.attachment && (
                     <div className="mt-2 pt-2 border-t border-gray-600 text-xs text-gray-400 flex items-center gap-2">
@@ -314,7 +318,7 @@ const SamplesView: React.FC<SamplesViewProps> = ({ activeSampleId, onClearActive
     };
 
     return (
-        <div className="flex-grow p-4 overflow-y-auto flex flex-col">
+        <div className="flex-grow p-4 overflow-y-auto flex flex-col custom-scrollbar">
             {showAddForm ? (
               <AddSampleForm onSave={handleSaveSample} onCancel={() => setShowAddForm(false)} isLoading={isLoading} />
             ) : (
@@ -325,12 +329,12 @@ const SamplesView: React.FC<SamplesViewProps> = ({ activeSampleId, onClearActive
                             <ChevronLeftIcon className="w-4 h-4" />
                             Back to all samples
                         </button>
-                        <h3 className="text-lg font-bold mt-2 text-white">Next Steps for: <span className="text-cyan-400">{activeSample.title}</span></h3>
+                        <h3 className="text-lg font-bold mt-2 text-white font-orbitron">Next Steps for: <span className="text-cyan-400">{activeSample.title}</span></h3>
                         <p className="text-sm text-gray-400">Try these ideas to iterate on your new website.</p>
                     </div>
                 ) : (
                     <div className="flex justify-between items-center mb-2">
-                        <h3 className="text-lg font-bold text-white">Project Starters</h3>
+                        <h3 className="text-lg font-bold text-white font-orbitron">Project Starters</h3>
                         <button 
                             onClick={() => setShowAddForm(true)}
                             className="flex items-center gap-1.5 bg-gray-700/80 hover:bg-gray-700 text-gray-300 hover:text-white text-sm font-medium py-1.5 px-3 rounded-md transition-colors"
@@ -343,12 +347,12 @@ const SamplesView: React.FC<SamplesViewProps> = ({ activeSampleId, onClearActive
                 )}
                 <div className="space-y-3 flex-grow">
                     {paginatedPrompts.map(sample => (
-                        <div key={sample.id} className="bg-gray-700/50 p-4 rounded-lg border border-gray-700 animate-fade-in">
-                            <h4 className="font-bold text-white">{sample.title}</h4>
+                        <div key={sample.id} className="glass p-4 rounded-lg animate-fade-in neon neon-on-hover transition-transform hover:scale-105 cursor-pointer" onClick={() => onRunSample(sample)}>
+                            <h4 className="font-bold text-white font-orbitron">{sample.title}</h4>
                             <p className="text-sm text-gray-400 mt-1 mb-3">{sample.description}</p>
-                            <button onClick={() => onRunSample(sample)} disabled={isLoading} className="w-full text-center bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-all text-sm">
+                            <div className="w-full text-center bg-cyan-600/50 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-all text-sm">
                                 Run Prompt
-                            </button>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -398,7 +402,7 @@ const PromptForm: React.FC<ControlPanelProps> = ({ onGenerate, onIterate, isLoad
     return (
         <form onSubmit={handleSubmit}>
           {attachedFile && (
-            <div className="bg-gray-700/80 mb-2 p-2 rounded-lg flex items-center justify-between text-sm text-gray-300 animate-fade-in">
+            <div className="glass mb-2 p-2 rounded-lg flex items-center justify-between text-sm text-gray-300 animate-fade-in">
                 <div className="flex items-center gap-2 truncate">
                     <PaperclipIcon className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                     <span className="truncate">{attachedFile.name}</span>
@@ -422,7 +426,7 @@ const PromptForm: React.FC<ControlPanelProps> = ({ onGenerate, onIterate, isLoad
                 onClick={handleAttachClick}
                 disabled={isLoading}
                 title="Attach file"
-                className="p-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-600/50 disabled:cursor-not-allowed text-gray-300 hover:text-white font-bold rounded-lg flex items-center justify-center transition-all"
+                className="p-2 bg-gray-900/50 border border-gray-100/10 hover:bg-gray-700/50 disabled:bg-gray-600/50 disabled:cursor-not-allowed text-gray-300 hover:text-white font-bold rounded-lg flex items-center justify-center transition-all"
             >
                 <PaperclipIcon className="w-5 h-5" />
             </button>
@@ -431,13 +435,13 @@ const PromptForm: React.FC<ControlPanelProps> = ({ onGenerate, onIterate, isLoad
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder={isIterationDisabled ? "Describe your website..." : "Describe the changes..."}
-              className="flex-grow bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+              className="flex-grow bg-gray-900/50 border border-gray-100/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={isLoading || (!prompt.trim() && !attachedFile)}
-              className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-all"
+              className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center transition-all hover:shadow-[0_0_10px_#06b6d4]"
             >
               {isLoading ? (
                 <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

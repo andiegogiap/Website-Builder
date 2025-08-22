@@ -13,7 +13,7 @@ export const CliOutput: React.FC<CliOutputProps> = ({ output }) => {
   }, [output]);
 
   return (
-    <div className="h-full bg-black text-white p-4 font-mono text-xs overflow-y-auto">
+    <div className="h-full bg-black/80 backdrop-blur-sm text-white p-4 font-mono text-xs overflow-y-auto custom-scrollbar">
       {output.map((line, index) => (
         <p key={index} className={`whitespace-pre-wrap ${line.startsWith('[ERROR]') ? 'text-red-400' : 'text-green-400'}`}>
           {line}

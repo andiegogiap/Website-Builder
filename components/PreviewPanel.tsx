@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
-import { EyeIcon, CodeIcon, CopyIcon, CheckIcon, DownloadIcon } from './icons';
-import type { PreviewView } from '../types';
+import { EyeIcon, CodeIcon, CopyIcon, CheckIcon, DownloadIcon } from './icons.tsx';
+import type { PreviewView } from '../types.ts';
 
 declare global {
     interface Window {
@@ -65,20 +66,21 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ code, view, onViewCh
   }> = ({ active, onClick, children }) => (
     <button
       onClick={onClick}
-      className={`px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-t-lg transition-colors ${
+      className={`relative px-4 py-2 text-sm font-medium flex items-center gap-2 transition-colors ${
         active
-          ? 'bg-gray-800 text-cyan-400 border-b-2 border-cyan-400'
-          : 'bg-transparent text-gray-400 hover:text-white'
+          ? 'text-white'
+          : 'text-gray-400 hover:text-white'
       }`}
     >
       {children}
+      {active && <div className="absolute bottom-0 left-2 right-2 h-0.5 bg-cyan-400 shadow-[0_0_8px_theme(colors.cyan.400)] rounded-full"></div>}
     </button>
   );
 
   return (
-    <div className="h-full w-full flex flex-col">
-      <div className="flex-shrink-0 bg-gray-900 px-4 border-b border-gray-700">
-        <nav className="-mb-px flex space-x-2">
+    <div className="h-full w-full flex flex-col glass rounded-l-lg overflow-hidden">
+      <div className="flex-shrink-0 bg-transparent px-4 border-b border-gray-100/10">
+        <nav className="flex space-x-2">
           <TabButton active={view === 'preview'} onClick={() => onViewChange('preview')}>
             <EyeIcon className="w-5 h-5" />
             Preview
@@ -100,7 +102,7 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ code, view, onViewCh
               sandbox="allow-scripts allow-forms allow-same-origin"
             />
           ) : (
-             <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800 text-gray-500 p-8">
+             <div className="w-full h-full flex flex-col items-center justify-center bg-gray-800/50 text-gray-500 p-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
                 <p className="mt-4 text-lg">Preview will appear here</p>
                 <p className="text-sm">Generate a website to see it live.</p>
@@ -108,18 +110,18 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ code, view, onViewCh
           )
         )}
         {view === 'source' && (
-          <div className="w-full h-full bg-gray-900 overflow-auto custom-scrollbar relative">
+          <div className="w-full h-full bg-black/50 overflow-auto custom-scrollbar relative">
             <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
                 <button 
                     onClick={handleSave}
-                    className="flex items-center gap-2 bg-gray-700/80 hover:bg-gray-700 text-gray-300 hover:text-white text-xs font-medium py-1.5 px-3 rounded-md transition-all backdrop-blur-sm"
+                    className="flex items-center gap-2 glass border-none text-gray-300 hover:text-white text-xs font-medium py-1.5 px-3 rounded-lg transition-all backdrop-blur-sm"
                 >
                     <DownloadIcon className="w-4 h-4" />
                     Save
                 </button>
                 <button 
                     onClick={handleCopy}
-                    className="flex items-center gap-2 bg-gray-700/80 hover:bg-gray-700 text-gray-300 hover:text-white text-xs font-medium py-1.5 px-3 rounded-md transition-all backdrop-blur-sm"
+                    className="flex items-center gap-2 glass border-none text-gray-300 hover:text-white text-xs font-medium py-1.5 px-3 rounded-lg transition-all backdrop-blur-sm"
                     disabled={isCopied}
                 >
                     {isCopied ? <CheckIcon className="w-4 h-4 text-green-400" /> : <CopyIcon className="w-4 h-4" />}

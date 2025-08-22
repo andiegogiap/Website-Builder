@@ -1,10 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import type { ChatMessage, GeneratedCode } from './types';
-
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set.");
-}
+import type { ChatMessage, GeneratedCode } from '../types.ts';
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 

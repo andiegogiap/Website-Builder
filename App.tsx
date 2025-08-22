@@ -1,9 +1,10 @@
+
 import React, { useState, useCallback, useEffect } from 'react';
-import { ControlPanel } from './components/ControlPanel';
-import { PreviewPanel } from './components/PreviewPanel';
-import { generateWebsite, iterateOnWebsite } from './services/geminiService';
-import type { ChatMessage, GeneratedCode, PreviewView } from './types';
-import { BotIcon, UserIcon } from './components/icons';
+import { ControlPanel } from './components/ControlPanel.tsx';
+import { PreviewPanel } from './components/PreviewPanel.tsx';
+import { generateWebsite, iterateOnWebsite } from './services/geminiService.ts';
+import type { ChatMessage, GeneratedCode, PreviewView } from './types.ts';
+import { BotIcon, UserIcon } from './components/icons.tsx';
 
 interface AttachedFile {
   name: string;
@@ -195,7 +196,7 @@ const App: React.FC = () => {
 
   return (
     <div 
-        className="flex h-screen w-full bg-gray-900 text-gray-200 font-sans overflow-hidden"
+        className="flex h-screen w-full text-gray-200 font-sans overflow-hidden"
         style={{ cursor: isResizing ? 'col-resize' : 'auto' }}
     >
       <div 
@@ -217,11 +218,11 @@ const App: React.FC = () => {
       </div>
       
       <div 
-        className="w-1.5 cursor-col-resize bg-gray-700 hover:bg-cyan-500 transition-colors duration-200 flex-shrink-0"
+        className="w-2 cursor-col-resize bg-cyan-900/50 hover:bg-cyan-500/80 transition-all duration-300 flex-shrink-0 shadow-[0_0_3px_#06b6d4] hover:shadow-[0_0_10px_#06b6d4]"
         onMouseDown={handleMouseDown}
       />
 
-      <div className="flex-grow flex flex-col bg-gray-800 min-w-0">
+      <div className="flex-grow flex flex-col min-w-0">
         <PreviewPanel 
           code={generatedCode?.html || ''}
           view={previewView}
