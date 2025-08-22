@@ -109,7 +109,7 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ code, view, onViewCh
           )
         )}
         {view === 'source' && (
-          <div className="w-full h-full bg-black/50 overflow-auto tiny-scrollbar relative">
+          <div className="w-full h-full bg-black/50 relative">
             <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
                 <button 
                     onClick={handleSave}
@@ -127,7 +127,7 @@ export const PreviewPanel: React.FC<PreviewPanelProps> = ({ code, view, onViewCh
                     {isCopied ? 'Copied!' : 'Copy'}
                 </button>
             </div>
-            <pre className="p-4 text-sm text-gray-300 font-mono whitespace-pre selection:bg-cyan-500/30">
+            <pre className="w-full h-full p-4 text-sm text-gray-300 font-mono whitespace-pre-wrap break-all selection:bg-cyan-500/30 overflow-auto tiny-scrollbar">
               <code className="language-html">{code || '// Source code will appear here...'}</code>
             </pre>
           </div>
